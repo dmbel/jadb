@@ -10,19 +10,12 @@ class RemoteFileRecord extends RemoteFile {
 	private final int size;
 	private final long lastModified;
 	private String dir;
-	private String name;
 
 	public RemoteFileRecord(String name, int mode, int size, long lastModified) {
-		this(null, name, mode, size, lastModified);
-	}
-
-	public RemoteFileRecord(String dir, String name, int mode, int size, long lastModified) {
 		super(name);
 		this.mode = mode;
 		this.size = size;
 		this.lastModified = lastModified;
-		this.dir = dir;
-		this.name = name;
 	}
 
 	public String getDir() {
@@ -32,14 +25,15 @@ class RemoteFileRecord extends RemoteFile {
 	public void setDir(String dir) {
 		this.dir = dir;
 	}
-
+	
+	@Override
 	public String getName() {
-		return name;
+		return super.getPath();
 	}
 
 	@Override
 	public String getPath() {
-		return (dir == null) ? name : (dir + (dir.endsWith("/") ? "" : "/") + name);
+		return dir;
 	}
 
 	@Override
